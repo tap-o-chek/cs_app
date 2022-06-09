@@ -1,0 +1,51 @@
+﻿@using Blazor.Data.Models
+@using Blazor.Services
+@inject NavigationManager _navigationManager
+
+
+<h1>Список рейсов</h1>
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Страна</th>
+        <th>Цена</th>
+        <th>Место</th>
+        <th>Пункт назначения</th>
+        <th>Посадочный талон</th>
+        <th>Рейс</th>
+    </tr>
+    </thead>
+    <tbody>
+    @if (_tickets != null)
+    {
+       @foreach (var ticket in _tickets)
+        {
+            <tr  @onclick="()=>ToTicket(ticket)">
+                <td>@ticket.Id</td>
+                <td>@ticket.Country</td>
+                <td>@ticket.Price</td>
+                <td>@ticket.Place</td>
+                <td>@ticket.Dest</td>
+                <td>@ticket.NumPass</td>
+                <td>@ticket.Flight</td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>
+
+
+@code {
+    private List<Ticket>? _tickets;
+    [Inject]
+    private ITicketsProvider TicketsProvider { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        _tickets = await TicketsProvider.GetAll();
+    }
+    public void ToTicket(Ticket ticket)
+    {
+        _navigationManager.NavigateTo($"/ticket/{ticket.Id}");
+    }
+}

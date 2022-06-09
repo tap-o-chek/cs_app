@@ -1,0 +1,26 @@
+field[b-22stcpvq8v] {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}
+.bookingBlock[b-22stcpvq8v] {
+    display: flex;
+    flex-direction: column;
+}
+.label[b-22stcpvq8v] {
+    width: 200px;
+}
+.valueField[b-22stcpvq8v] {
+    width: 400px;
+}
+.artAvias[b-22stcpvq8v] {
+    display: flex;
+    flex-direction: column;
+}
+.bookingTag[b-22stcpvq8v] {
+    padding: 5px;
+    margin-top: 5px;
+    border: 1px solid #8b008bff;
+    border-radius: 8px;
+    background-color: #ff00ff44;
+}

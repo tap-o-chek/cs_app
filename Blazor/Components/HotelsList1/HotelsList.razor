@@ -1,0 +1,47 @@
+﻿@using Blazor.Data.Models
+@using Blazor.Services
+@inject NavigationManager _navigationManager
+
+
+<h1>Список бронирований</h1>
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Отель</th>
+        <th>Номер в отеле</th>
+        <th>Название автобуса</th>
+        <th>Имя гида</th>
+    </tr>
+    </thead>
+    <tbody>
+    @if (_hotels != null)
+    {
+       @foreach (var hotel in _hotels)
+        {
+            <tr  @onclick="()=>ToHotel(hotel)">
+                <td>@hotel.Id</td>
+                <td>@hotel.HotelName</td>
+                <td>@hotel.Room</td>
+                <td>@hotel.CarName</td>
+                <td>@hotel.GuideName</td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>
+
+
+@code {
+    private List<Hotel>? _hotels;
+    [Inject]
+    private IHotelProvider HotelsProvider { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        _hotels = await HotelsProvider.GetAll();
+    }
+    public void ToHotel(Hotel hotel)
+    {
+        _navigationManager.NavigateTo($"/hotel/{hotel.Id}");
+    }
+}
